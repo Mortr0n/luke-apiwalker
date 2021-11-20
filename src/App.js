@@ -1,10 +1,15 @@
 import './App.css';
-import Home from './components/Home';
+import Home from './views/Home';
+import {Router} from '@reach/router';
 
 function App() {
   return (
     <div className="App">
-      <Home path="/" />
+      <Router>
+
+        <Home path="/" />
+
+      </Router>
     </div>
   );
 }
