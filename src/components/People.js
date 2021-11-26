@@ -9,6 +9,8 @@ const People = (props) => {
     const [displayItem, setDisplayItem] = useState({});
     const [homeworld, setHomeworld] = useState("");
     const [homeworldID, setHomeworldID] = useState();
+    const [vehicle, setVehicle] = useState("");
+    const [vehicleID, setVehicleID] = useState();
 
     useEffect(() => {
         axios.get(`https://swapi.dev/api/people/${id}`)
@@ -25,7 +27,13 @@ const People = (props) => {
                     setHomeworld(homeworldRes.data.name);
                 })
                 .catch((err) => console.log(err));
-
+            getVehicleID(res.data.vehicles[0]);
+            axios.get(res.data.vehicles[0])
+                .then((vehicleRes) => {
+                    console.log(vehicleRes.data.name);
+                    setVehicle(vehicleRes.data.name);
+                })
+                .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }, [id])
@@ -41,6 +49,18 @@ const People = (props) => {
             const homeWorldIDString = `${firstChar}${secondChar}`;
             setHomeworldID(homeWorldIDString);
             console.log(homeworldID);
+        }
+    }
+
+    const getVehicleID = (vehicleURL) => {
+        if(vehicleURL.charAt(vehicleURL.length-3)==="/"){
+            const vID = vehicleURL.charAt(vehicleURL.length-2);
+            setVehicleID(vID);
+        }else{
+            const firstChar = vehicleURL.charAt(vehicleURL.length-3);
+            const secondChar = vehicleURL.charAt(vehicleURL.length-2);
+            const vehicleIDString = `${firstChar}${secondChar}`;
+            setVehicleID(vehicleIDString);
         }
         
     }
@@ -59,6 +79,9 @@ const People = (props) => {
                 {/* link to the homeworld if clicked */}
                 <p>
                     <Link to={`/planets/${homeworldID}`}>{homeworld}</Link>
+                </p>
+                <p>
+                    <Link to={`/vehicles/${vehicleID}`}>{vehicle}</Link>
                 </p>
                 
                 </div>
