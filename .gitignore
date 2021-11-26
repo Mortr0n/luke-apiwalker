@@ -4,7 +4,7 @@ scripts/flow/*/.flowconfig
 .flowconfig
 *~
 *.pyc
-.grunt
+.grunt 
 _SpecRunner.html
 __benchmarks__
 build/
