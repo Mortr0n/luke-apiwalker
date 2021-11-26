@@ -1,47 +1,34 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState} from 'react';
+import { navigate } from '@reach/router';
 
 const Form = (props) => {
-    const [choiceList, setChoiceList] = useState([]);
     const [searchSelector, setSearchSelector] = useState("");
-    const {displayList, setDisplayList} = props;
+    const [idSelector, setIDSelector] = useState("");
 
     const submitHandler = (e) => {
         e.preventDefault();
-        axios.get(`${searchSelector}`)
-            .then((res) => {
-                console.log(res);
-                console.log(res.data.results);
-                setDisplayList(res.data.results);
-            })
-            .catch((err) => console.log(err))
-    }
+        navigate(`/${searchSelector}/${idSelector}`);
 
-    useEffect(() => {
-        axios.get('https://swapi.dev/api/')
-        .then((res) => {
-            console.log(res);
-            console.log(res.data);
-            var choiceAsArray = []
-            Object.keys(res.data).forEach(key=>choiceAsArray.push(res.data[key]))
-            console.log(choiceAsArray)
-            setChoiceList(choiceAsArray);
-        })
-        .catch((err) => console.log(err))
-    }, []);
+            
+    };
+
+    
 
     return(
         <form onSubmit={submitHandler}>
             <label htmlFor="searchSelector">Search for:</label>
             <select onChange={(e) => setSearchSelector(e.target.value)}>
-                {
-                    choiceList.map((choice, index) => {
-                        return(
-                            <option value={choice} name="searchSelector" key={index}>{choice}</option>
-                    )
-                })
-                }
+                <option value="" defaultValue>Select an option</option>
+                <option value="people">People</option>
+                <option value="planets">Planets</option>
+                <option value="films">Films</option>
+                <option value="species">Species</option>
+                <option value="vehicles">Vehicles</option>
+                <option value="starships">Starships</option>
             </select>
+            <label htmlFor="idSelector">ID:</label>
+            <input type="text" onChange={(e)=>setIDSelector(e.target.value)} />
+
             <button>Choose</button>
         </form>
 
