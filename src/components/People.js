@@ -12,11 +12,13 @@ const People = (props) => {
     const [vehicle, setVehicle] = useState("");
     const [vehicleID, setVehicleID] = useState();
 
+
     useEffect(() => {
         axios.get(`https://swapi.dev/api/people/${id}`)
         .then((res) => {
             console.log(res);
             console.log(res.data);
+            
             setDisplayItem(res.data);
             // see function below for getting homeworldID
             getHomeWorldID(res.data.homeworld);
