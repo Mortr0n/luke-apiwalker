@@ -2,7 +2,7 @@
 node_modules
 scripts/flow/*/.flowconfig
 .flowconfig
-*~
+*~ 
 *.pyc
 .grunt 
 _SpecRunner.html
